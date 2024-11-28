@@ -15,7 +15,7 @@ import { useSystemStore } from '@/web/common/system/useSystemStore';
 import type { ResLogin } from '@/global/support/api/hengda/userRes.d';
 import { useRouter } from 'next/router';
 import { useUserStore } from '@/web/support/hengda/useUserStore';
-import { useChatStore } from '@/web/core/chat/context/storeChat';
+import { useChatStore } from '@/web/core/chat/context/useChatStore';
 import LoginForm from '@/pages/teacher/components/loginForm/LoginForm';
 import dynamic from 'next/dynamic';
 import { serviceSideProps } from '@/web/common/utils/i18n';
@@ -41,7 +41,7 @@ const Login = () => {
   const { feConfigs } = useSystemStore();
   const [pageType, setPageType] = useState<`${LoginPageTypeEnum}`>(LoginPageTypeEnum.passwordLogin);
   const { setUserInfo } = useUserStore();
-  const { setLastChatId, setLastChatAppId } = useChatStore();
+  const { setLastChatAppId } = useChatStore();
   // const { isOpen, onOpen, onClose } = useDisclosure();
   // const { isPc } = useSystem();
 
@@ -58,9 +58,6 @@ const Login = () => {
     (res: ResLogin) => {
       // init store
       console.log('AAA >> loginSuccess, res', res);
-      setLastChatId('');
-      setLastChatAppId('');
-
       setUserInfo(res);
       setToken(res.token);
 
@@ -73,7 +70,7 @@ const Login = () => {
         }
       }, 500);
     },
-    [lastRoute, router, setLastChatId, setLastChatAppId, setUserInfo]
+    [lastRoute, router, setLastChatAppId, setUserInfo]
   );
 
   function DynamicComponent({ type }: { type: `${LoginPageTypeEnum}` }) {
@@ -96,6 +93,7 @@ const Login = () => {
     //   return;
     // }
     setPageType(LoginPageTypeEnum.passwordLogin);
+    setLastChatAppId('');
   }, [feConfigs.oauth]);
 
   useMount(() => {
