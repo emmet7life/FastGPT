@@ -34,6 +34,7 @@ import dynamic from 'next/dynamic';
 import { useSystem } from '@fastgpt/web/hooks/useSystem';
 import { useShareChatStore } from '@/web/core/chat/storeShareChat';
 const CustomPluginRunBox = dynamic(() => import('./components/CustomPluginRunBox'));
+import { useUserStore } from '@/web/support/hengda/useUserStore';
 
 type Props = {
   appName: string;
@@ -51,6 +52,7 @@ const OutLink = (
     outLinkUid: string;
   }
 ) => {
+  const { setUserInfo } = useUserStore();
   const { t } = useTranslation();
   const router = useRouter();
   const { outLinkUid, showRawSource, showNodeStatus } = props;
@@ -259,6 +261,10 @@ const OutLink = (
             outLinkUid
           });
         }}
+        onLogout={() => {
+          setUserInfo(null);
+          router.replace('/teacher/login');
+        }}
       />
     );
 
@@ -441,7 +447,7 @@ export async function getServerSideProps(context: any) {
       shareId: shareId ?? '',
       authToken: authToken ?? '',
       customUid,
-      ...(await serviceSideProps(context, ['file', 'app', 'chat', 'workflow']))
+      ...(await serviceSideProps(context, ['file', 'app', 'chat', 'workflow', 'user']))
     }
   };
 }

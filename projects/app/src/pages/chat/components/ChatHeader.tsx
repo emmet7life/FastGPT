@@ -223,7 +223,7 @@ const MobileHeader = ({
   const router = useRouter();
   const onOpenSlider = useContextSelector(ChatContext, (v) => v.onOpenSlider);
   const { isOpen: isOpenDrawer, onToggle: toggleDrawer, onClose: onCloseDrawer } = useDisclosure();
-  const isShareChat = router.pathname === '/chat/share';
+  const isShareChat = router.pathname === '/chat/share' || router.pathname === '/teacher/wu';
 
   return (
     <>

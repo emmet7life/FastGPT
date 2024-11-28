@@ -1,9 +1,10 @@
 import React, { useState, Dispatch, useCallback } from 'react';
 import { FormControl, Flex, Input, Button, Box, Link } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { LoginPageTypeEnum } from '@/web/support/user/login/constants';
-import { postLogin } from '@/web/support/user/api';
-import type { ResLogin } from '@/global/support/api/userRes';
+import { LoginPageTypeEnum } from '@/web/support/hengda/constants';
+// import { postLogin } from '@/web/support/user/api';
+import { hengdaLogin } from '@/web/support/hengda/user';
+import type { ResLogin } from '@/global/support/api/hengda/userRes';
 import { useToast } from '@fastgpt/web/hooks/useToast';
 import { useSystemStore } from '@/web/common/system/useSystemStore';
 import { getDocPath } from '@/web/common/system/doc';
@@ -37,7 +38,7 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
       setRequesting(true);
       try {
         loginSuccess(
-          await postLogin({
+          await hengdaLogin({
             username,
             password
           })
@@ -57,12 +58,12 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
     [loginSuccess, t, toast]
   );
 
-  const isCommunityVersion = !!(feConfigs?.register_method && !feConfigs?.isPlus);
+  // const isCommunityVersion = !!(feConfigs?.register_method && !feConfigs?.isPlus);
 
   const placeholder = (() => {
-    if (isCommunityVersion) {
-      return t('login:use_root_login');
-    }
+    // if (isCommunityVersion) {
+    //   return t('login:use_root_login');
+    // }
     return [t('common:support.user.login.Username')]
       .concat(
         feConfigs?.login_method?.map((item) => {
@@ -104,7 +105,7 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
             type={'password'}
             placeholder={
               // isCommunityVersion
-              // ? t('login:root_password_placeholder')
+              //   ? t('login:root_password_placeholder')
               // : 
               t('common:support.user.login.Password')
             }
@@ -175,19 +176,19 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
               {t('login:forget_password')}
             </Box>
           )} */}
-          {/* {feConfigs?.register_method && feConfigs.register_method.length > 0 && (
-            <Flex alignItems={'center'}>
-              <Box mx={3} h={'12px'} w={'1px'} bg={'myGray.250'}></Box>
-              <Box
-                cursor={'pointer'}
-                _hover={{ textDecoration: 'underline' }}
-                onClick={() => setPageType('register')}
-                fontSize="mini"
-              >
-                {t('login:register')}
-              </Box>
-            </Flex>
-          )} */}
+          {/* {feConfigs?.register_method && feConfigs.register_method.length > 0 && ( */}
+          <Flex alignItems={'center'}>
+            {/* <Box mx={3} h={'12px'} w={'1px'} bg={'myGray.250'}></Box> */}
+            <Box
+              cursor={'pointer'}
+              _hover={{ textDecoration: 'underline' }}
+              onClick={() => setPageType('register')}
+              fontSize="mini"
+            >
+              {t('login:register')}
+            </Box>
+          </Flex>
+          {/*  )} */}
         </Flex>
       </Box>
     </FormLayout>

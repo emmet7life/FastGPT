@@ -31,7 +31,8 @@ const ChatHistorySlider = ({
   onDelHistory,
   onClearHistory,
   onSetHistoryTop,
-  onSetCustomTitle
+  onSetCustomTitle,
+  onLogout
 }: {
   appId?: string;
   appName: string;
@@ -41,10 +42,12 @@ const ChatHistorySlider = ({
   onClearHistory: () => void;
   onSetHistoryTop?: (e: { chatId: string; top: boolean }) => void;
   onSetCustomTitle?: (e: { chatId: string; title: string }) => void;
+  onLogout?: () => void;
 }) => {
   const theme = useTheme();
   const router = useRouter();
   const isUserChatPage = router.pathname === '/chat';
+  const isShareChatPage = router.pathname === '/chat/share';
 
   const { t } = useTranslation();
 
@@ -307,14 +310,20 @@ const ChatHistorySlider = ({
       </ScrollData>
 
       {/* exec */}
-      {!isPc && isUserChatPage && (
+      {((!isPc && isUserChatPage) || (onLogout && isShareChatPage)) && (
         <Flex
           mt={2}
           borderTop={theme.borders.base}
           alignItems={'center'}
           cursor={'pointer'}
           p={3}
-          onClick={() => router.push('/app/list')}
+          onClick={() => {
+            if (onLogout) {
+              onLogout();
+            } else {
+              router.push('/app/list')
+            }
+          }}
         >
           <IconButton
             mr={3}
@@ -325,7 +334,7 @@ const ChatHistorySlider = ({
             borderRadius={'50%'}
             aria-label={''}
           />
-          {t('common:core.chat.Exit Chat')}
+          {onLogout ? t('user:logout.Exit') : t('common:core.chat.Exit Chat')}
         </Flex>
       )}
       <EditTitleModal />

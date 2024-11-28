@@ -5,6 +5,7 @@ import axios, {
   AxiosProgressEvent
 } from 'axios';
 import { clearToken } from '@/web/support/user/auth';
+import { clearToken as clearHengdaToken, teacherWuPage } from '@/web/support/hengda/auth';
 import { TOKEN_ERROR_CODE } from '@fastgpt/global/common/error/errorCode';
 import { TeamErrEnum } from '@fastgpt/global/common/error/code/team';
 import { useSystemStore } from '../system/useSystemStore';
@@ -17,6 +18,7 @@ interface ConfigType {
   cancelToken?: AbortController;
   maxQuantity?: number; // The maximum number of simultaneous requests, usually used to cancel old requests
   withCredentials?: boolean;
+  baseURL?: string;
 }
 interface ResponseDataType {
   code: number;
@@ -109,13 +111,22 @@ function responseError(err: any) {
   }
   // 有报错响应
   if (err?.code in TOKEN_ERROR_CODE) {
-    clearToken();
+    const isTeacherWuPage = teacherWuPage[window.location.pathname] === true;
+    if (isTeacherWuPage) {
+      clearHengdaToken();
+    } else {
+      clearToken();
+    }
 
     if (
       !(window.location.pathname === '/chat/share' || window.location.pathname === '/chat/team')
     ) {
+      var path = '/login';
+      if (isTeacherWuPage) {
+        path = '/teacher/login';
+      }
       window.location.replace(
-        getWebReqUrl(`/login?lastRoute=${encodeURIComponent(location.pathname + location.search)}`)
+        getWebReqUrl(`${path}?lastRoute=${encodeURIComponent(location.pathname + location.search)}`)
       );
     }
 
@@ -147,7 +158,7 @@ instance.interceptors.response.use(responseSuccess, (err) => Promise.reject(err)
 function request(
   url: string,
   data: any,
-  { cancelToken, maxQuantity, withCredentials, ...config }: ConfigType,
+  { cancelToken, maxQuantity, withCredentials, baseURL, ...config }: ConfigType,
   method: Method
 ): any {
   /* 去空 */
@@ -161,7 +172,7 @@ function request(
 
   return instance
     .request({
-      baseURL: getWebReqUrl('/api'),
+      baseURL: baseURL ?? getWebReqUrl('/api'),
       url,
       method,
       data: ['POST', 'PUT'].includes(method) ? data : null,

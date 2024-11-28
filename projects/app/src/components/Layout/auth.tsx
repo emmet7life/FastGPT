@@ -14,7 +14,10 @@ const unAuthPage: { [key: string]: boolean } = {
   '/chat/share': true,
   '/chat/team': true,
   '/tools/price': true,
-  '/price': true
+  '/price': true,
+  '/teacher': true,
+  '/teacher/login': true,
+  '/teacher/wu': true
 };
 
 const Auth = ({ children }: { children: JSX.Element }) => {

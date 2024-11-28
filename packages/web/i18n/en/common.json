@@ -1003,7 +1003,7 @@
   "support.user.login.Phone": "Phone Login",
   "support.user.login.Phone number": "Phone Number",
   "support.user.login.Provider error": "Login Error, Please Try Again",
-  "support.user.login.Username": "Username",
+  "support.user.login.Username": "(AM)Username",
   "support.user.login.Wechat": "WeChat Login",
   "support.user.login.can_not_login": "Cannot Log In, Click to Contact",
   "support.user.login.error": "Login Error",

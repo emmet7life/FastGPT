@@ -30,7 +30,10 @@ const pcUnShowLayoutRoute: Record<string, boolean> = {
   '/app/edit': true,
   '/chat': true,
   '/tools/price': true,
-  '/price': true
+  '/price': true,
+  '/teacher': true,
+  '/teacher/login': true,
+  '/teacher/wu': true
 };
 const phoneUnShowLayoutRoute: Record<string, boolean> = {
   '/': true,
@@ -40,7 +43,10 @@ const phoneUnShowLayoutRoute: Record<string, boolean> = {
   '/chat/share': true,
   '/chat/team': true,
   '/tools/price': true,
-  '/price': true
+  '/price': true,
+  '/teacher': true,
+  '/teacher/login': true,
+  '/teacher/wu': true
 };
 
 const Layout = ({ children }: { children: JSX.Element }) => {

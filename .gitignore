@@ -6,6 +6,7 @@ out/
 # production
 build/
 .astro/
+.svn/
 
 # misc
 .DS_Store

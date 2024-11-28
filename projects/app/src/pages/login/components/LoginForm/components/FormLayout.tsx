@@ -104,7 +104,7 @@ const FormLayout = ({ children, setPageType, pageType }: Props) => {
             {feConfigs?.systemTitle}
           </Box>
         </Flex>
-        {!isPc && <I18nLngSelector />}
+        {/* {!isPc && <I18nLngSelector />} */}
       </Flex>
       {children}
       {show_oauth && (
