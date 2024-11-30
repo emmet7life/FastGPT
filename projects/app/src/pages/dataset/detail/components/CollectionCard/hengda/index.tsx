@@ -57,6 +57,9 @@ import {
   DatasetStateMap
 } from '@fastgpt/global/core/hengda/dataset/constants';
 import { ImportDataSourceEnum, TrainingModeEnum } from '@fastgpt/global/core/dataset/constants';
+import {
+  confirmDocumentChunkUpload
+} from '@/web/core/dataset/hengda/api';
 
 const Header = dynamic(() => import('./Header'));
 const EmptyCollectionTip = dynamic(() => import('../EmptyCollectionTip'));
@@ -130,7 +133,28 @@ const CollectionCard = () => {
       }),
     [collections, t]
   );
+  const { runAsync: onBatchCommitEmbbeding, loading: isBatchEmbbeding } = useRequest2(
+    async () => {
+      const collectionIds = formatCollections.filter((item) => item.fileCode && item.state == DatasetStateEnum.chunked).map((item) => item.fileCode);
+      if (collectionIds.length === 0) {
+        toast({
+          status: 'error',
+          title: t('common:core.dataset.collection.No document to embedding')
+        });
+        return;
+      }
 
+      for (const collectionId of collectionIds) {
+        await confirmDocumentChunkUpload(collectionId);
+      }
+    },
+    {
+      onSuccess() {
+        getData(pageNum);
+      },
+      successToast: t('common:common.submit_success')
+    }
+  );
   const { runAsync: onUpdateCollection, loading: isUpdating } = useRequest2(
     putDatasetCollectionById,
     {
@@ -185,13 +209,13 @@ const CollectionCard = () => {
     }
   );
 
-  const isLoading = isUpdating || isDeleting || isSyncing || (isGetting && collections.length === 0);
+  const isLoading = isUpdating || isDeleting || isSyncing || isBatchEmbbeding || (isGetting && collections.length === 0);
 
   return (
     <MyBox isLoading={isLoading} h={'100%'} py={[2, 4]}>
       <Flex ref={BoxRef} flexDirection={'column'} py={[1, 0]} h={'100%'} px={[2, 6]}>
         {/* header */}
-        <Header />
+        <Header onBatchCommitEmbbeding={onBatchCommitEmbbeding} />
 
         {/* collection table */}
         <TableContainer mt={3} overflowY={'auto'} fontSize={'sm'}>

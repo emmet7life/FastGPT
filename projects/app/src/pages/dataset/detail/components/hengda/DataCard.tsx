@@ -123,33 +123,31 @@ const DataCard = () => {
     }
   );
 
-  console.log("OKOKOK >> DataCard.tsx >> collection", collection);
-
+  // 提交嵌入
   const { mutate: startEmbedding, isLoading } = useRequest({
     mutationFn: async ({ collectionId }: { collectionId: string }) => {
-      // 异步上传逻辑
-      // 参数说明
-      // mode：上传模式。
-      // customSplitChar：自定义分割字符。
-      // qaPrompt：问答提示。
-      // webSelector：网页选择器。
+      if (chunkList.length === 0) {
+        return false;
+      }
 
       // 检查上传列表是否为空
       if (!collectionId) throw new Error('collectionId is empty.');
       await confirmDocumentChunkUpload(collectionId);
       return true;
     },
-    onSuccess() {
-      toast({
-        title: t('common:core.dataset.import.Import success'),
-        status: 'success'
-      });
-      router.replace({
-        query: {
-          ...router.query,
-          currentTab: TabEnum.collectionCard
-        }
-      });
+    onSuccess(result) {
+      if (result) {
+        toast({
+          title: t('common:core.dataset.import.Import success'),
+          status: 'success'
+        });
+        router.replace({
+          query: {
+            ...router.query,
+            currentTab: TabEnum.collectionCard
+          }
+        });
+      }
     },
     errorToast: t('common:common.error.unKnow')
   });
@@ -216,6 +214,7 @@ const DataCard = () => {
             <Box>
               <Button
                 ml={2}
+                isDisabled={!datasetDataList.length}
                 variant={state == DatasetStateEnum.chunked ? 'primary' : 'whitePrimary'}
                 size={['sm', 'md']}
                 onClick={() => {

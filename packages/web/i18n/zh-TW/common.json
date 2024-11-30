@@ -501,6 +501,7 @@
   "core.dataset.collection.Website Empty Tip": "還沒有關聯網站",
   "core.dataset.collection.Website Link": "網站網址",
   "core.dataset.collection.id": "集合 ID",
+  "core.dataset.collection.No document to embedding": "没有等待嵌入的文档",
   "core.dataset.collection.metadata.Chunk Size": "分割大小",
   "core.dataset.collection.metadata.Createtime": "建立時間",
   "core.dataset.collection.metadata.Raw text length": "原始文字長度",
