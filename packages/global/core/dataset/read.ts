@@ -1,7 +1,11 @@
 import { DatasetSourceReadTypeEnum, ImportDataSourceEnum } from './constants';
 
 export const importType2ReadType = (type: ImportDataSourceEnum) => {
-  if (type === ImportDataSourceEnum.csvTable || type === ImportDataSourceEnum.fileLocal) {
+  if (
+    type === ImportDataSourceEnum.csvTable ||
+    type === ImportDataSourceEnum.fileLocal ||
+    type === ImportDataSourceEnum.fileUpload
+  ) {
     return DatasetSourceReadTypeEnum.fileLocal;
   }
   if (type === ImportDataSourceEnum.fileLink) {

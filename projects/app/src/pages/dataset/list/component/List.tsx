@@ -112,6 +112,7 @@ function List() {
   const DeleteTipsMap = useRef({
     [DatasetTypeEnum.folder]: t('common:dataset.deleteFolderTips'),
     [DatasetTypeEnum.dataset]: t('common:core.dataset.Delete Confirm'),
+    [DatasetTypeEnum.dataset_v2]: t('common:core.dataset.Delete Confirm'),
     [DatasetTypeEnum.websiteDataset]: t('common:core.dataset.Delete Confirm'),
     [DatasetTypeEnum.externalFile]: t('common:core.dataset.Delete Confirm')
   });

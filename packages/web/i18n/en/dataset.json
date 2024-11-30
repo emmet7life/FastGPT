@@ -1,8 +1,11 @@
 {
   "Enable": "Enable",
+  "Action": "Action",
   "collection.Create update time": "Creation/Update Time",
   "collection.Training type": "Training Mode",
   "collection_tags": "Collection Tags",
+  "common_dataset_v2": "Newest Dataset",
+  "common_dataset_v2_desc": "Build a Dataset by importing pdf files.",
   "common_dataset": "General Dataset",
   "common_dataset_desc": "Build a Dataset by importing files, web links, or manual input.",
   "confirm_to_rebuild_embedding_tip": "Are you sure you want to switch the index for the Dataset?\nSwitching the index is a significant operation that requires re-indexing all data in your Dataset, which may take a long time. Please ensure your account has sufficient remaining points.\n\nAdditionally, you need to update the applications that use this Dataset to avoid conflicts with other indexed model Datasets.",

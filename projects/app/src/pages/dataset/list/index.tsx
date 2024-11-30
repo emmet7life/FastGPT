@@ -154,6 +154,12 @@ const Dataset = () => {
                   menuList={[
                     {
                       children: [
+					    {
+						  icon: 'core/dataset/commonDatasetColor',
+						  label: t('dataset:common_dataset_v2'),
+						  description: t('dataset:common_dataset_v2_desc'),
+						  onClick: () => onSelectDatasetType(DatasetTypeEnum.dataset_v2)
+					    },
                         {
                           icon: 'core/dataset/commonDatasetColor',
                           label: t('dataset:common_dataset'),

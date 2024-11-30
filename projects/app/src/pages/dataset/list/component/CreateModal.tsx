@@ -23,6 +23,7 @@ import ComplianceTip from '@/components/common/ComplianceTip/index';
 
 export type CreateDatasetType =
   | DatasetTypeEnum.dataset
+  | DatasetTypeEnum.dataset_v2
   | DatasetTypeEnum.externalFile
   | DatasetTypeEnum.websiteDataset;
 
@@ -44,6 +45,7 @@ const CreateModal = ({
   const databaseNameMap = useMemo(() => {
     return {
       [DatasetTypeEnum.dataset]: t('dataset:common_dataset'),
+      [DatasetTypeEnum.dataset_v2]: t('dataset:common_dataset_v2'),
       [DatasetTypeEnum.externalFile]: t('dataset:external_file'),
       [DatasetTypeEnum.websiteDataset]: t('dataset:website_dataset')
     };
@@ -52,6 +54,7 @@ const CreateModal = ({
   const iconMap = useMemo(() => {
     return {
       [DatasetTypeEnum.dataset]: 'core/dataset/commonDatasetColor',
+      [DatasetTypeEnum.dataset_v2]: 'core/dataset/commonDatasetColor',
       [DatasetTypeEnum.externalFile]: 'core/dataset/externalDatasetColor',
       [DatasetTypeEnum.websiteDataset]: 'core/dataset/websiteDatasetColor'
     };

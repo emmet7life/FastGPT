@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
+import { DatasetTypeEnum } from '@fastgpt/global/core/dataset/constants';
 import { useRouter } from 'next/router';
 import { Box, Flex, FlexProps } from '@chakra-ui/react';
 import { useToast } from '@fastgpt/web/hooks/useToast';
@@ -15,13 +16,16 @@ import {
   DatasetPageContextProvider
 } from '@/web/core/dataset/context/datasetPageContext';
 import CollectionPageContextProvider from './components/CollectionCard/Context';
+import CollectionPageContextProviderV2 from './components/CollectionCard/hengda/Context';
 import { useContextSelector } from 'use-context-selector';
 import NextHead from '@/components/common/NextHead';
 import { useRequest2 } from '@fastgpt/web/hooks/useRequest';
 import { useSystem } from '@fastgpt/web/hooks/useSystem';
 
 const CollectionCard = dynamic(() => import('./components/CollectionCard/index'));
+const CollectionCardV2 = dynamic(() => import('./components/CollectionCard/hengda/index'));
 const DataCard = dynamic(() => import('./components/DataCard'));
+const DataCardV2 = dynamic(() => import('./components/hengda/DataCard'));
 const Test = dynamic(() => import('./components/Test'));
 const Info = dynamic(() => import('./components/Info'));
 const Import = dynamic(() => import('./components/Import'));
@@ -50,6 +54,10 @@ const Detail = ({ datasetId, currentTab }: Props) => {
   const datasetDetail = useContextSelector(DatasetPageContext, (v) => v.datasetDetail);
   const loadDatasetDetail = useContextSelector(DatasetPageContext, (v) => v.loadDatasetDetail);
 
+  const datesetType = useMemo(() => {
+    return datasetDetail.type;
+  }, [datasetDetail]);
+
   useRequest2(() => loadDatasetDetail(datasetId), {
     onError(err: any) {
       router.replace(`/dataset/list`);
@@ -70,20 +78,26 @@ const Detail = ({ datasetId, currentTab }: Props) => {
           <Flex flex={1} w={0} bg={'white'} flexDir={'column'} boxShadow={'2'} borderRadius={'md'}>
             {currentTab !== TabEnum.import && <NavBar currentTab={currentTab} />}
             <Box flex={'1'} overflowY={'auto'}>
-              {currentTab === TabEnum.collectionCard && (
+              {currentTab === TabEnum.collectionCard && datesetType == DatasetTypeEnum.dataset_v2 && (
+                <CollectionPageContextProviderV2>
+                  <CollectionCardV2 />
+                </CollectionPageContextProviderV2>
+              )}
+              {currentTab === TabEnum.collectionCard && datesetType == DatasetTypeEnum.dataset && (
                 <CollectionPageContextProvider>
                   <CollectionCard />
                 </CollectionPageContextProvider>
               )}
               {currentTab === TabEnum.test && <Test datasetId={datasetId} />}
-              {currentTab === TabEnum.dataCard && <DataCard />}
+              {currentTab === TabEnum.dataCard && datesetType == DatasetTypeEnum.dataset_v2 && <DataCardV2 />}
+              {currentTab === TabEnum.dataCard && datesetType == DatasetTypeEnum.dataset && <DataCard />}
               {currentTab === TabEnum.import && <Import />}
             </Box>
           </Flex>
 
           {/* Slider */}
           <>
-            {currentTab === TabEnum.dataCard && (
+            {currentTab === TabEnum.dataCard && datesetType == DatasetTypeEnum.dataset && (
               <Flex {...sliderStyles} flex={'0 0 20rem'}>
                 <MetaDataCard datasetId={datasetId} />
               </Flex>
@@ -102,12 +116,18 @@ const Detail = ({ datasetId, currentTab }: Props) => {
 
             {!!datasetDetail._id && (
               <Box flex={'1 0 0'} pb={0} overflow={'auto'}>
-                {currentTab === TabEnum.collectionCard && (
+                {currentTab === TabEnum.collectionCard && datesetType == DatasetTypeEnum.dataset_v2 && (
+                  <CollectionPageContextProviderV2>
+                    <CollectionCardV2 />
+                  </CollectionPageContextProviderV2>
+                )}
+                {currentTab === TabEnum.collectionCard && datesetType == DatasetTypeEnum.dataset && (
                   <CollectionPageContextProvider>
                     <CollectionCard />
                   </CollectionPageContextProvider>
                 )}
-                {currentTab === TabEnum.dataCard && <DataCard />}
+                {currentTab === TabEnum.dataCard && datesetType == DatasetTypeEnum.dataset_v2 && <DataCardV2 />}
+                {currentTab === TabEnum.dataCard && datesetType == DatasetTypeEnum.dataset && <DataCard />}
                 {currentTab === TabEnum.test && <Test datasetId={datasetId} />}
                 {currentTab === TabEnum.info && <Info datasetId={datasetId} />}
                 {currentTab === TabEnum.import && <Import />}

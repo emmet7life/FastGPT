@@ -13,6 +13,10 @@ const SideTag = ({ type, ...props }: { type: `${DatasetTypeEnum}` } & FlexProps)
         icon: 'core/dataset/commonDatasetOutline',
         label: t('dataset:common_dataset')
       },
+      [DatasetTypeEnum.dataset_v2]: {
+        icon: 'core/dataset/commonDatasetOutline',
+        label: t('dataset:common_dataset_v2')
+      },
       [DatasetTypeEnum.websiteDataset]: {
         icon: 'core/dataset/websiteDatasetOutline',
         label: t('dataset:website_dataset')

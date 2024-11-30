@@ -1,8 +1,11 @@
 {
   "Enable": "啟用",
+  "Action": "操作",
   "collection.Create update time": "建立／更新時間",
   "collection.Training type": "分段模式",
   "collection_tags": "集合標籤",
+  "common_dataset_v2": "新版知识库",
+  "common_dataset_v2_desc": "可通过导入PDF文件形式构建知识库",
   "common_dataset": "通用資料集",
   "common_dataset_desc": "可透過匯入檔案、網頁連結或手動輸入的方式建立資料集",
   "confirm_to_rebuild_embedding_tip": "確定要為資料集切換索引嗎？\n切換索引是一個重要的操作，需要對您資料集內所有資料重新建立索引，可能需要較長時間，請確保帳號內剩餘點數充足。\n\n此外，您還需要注意修改使用此資料集的應用程式，避免與其他索引模型資料集混用。",

@@ -2,6 +2,7 @@
 export enum DatasetTypeEnum {
   folder = 'folder',
   dataset = 'dataset',
+  dataset_v2 = 'dataset_v2',
   websiteDataset = 'websiteDataset', // depp link
   externalFile = 'externalFile'
 }
@@ -14,6 +15,11 @@ export const DatasetTypeMap = {
   [DatasetTypeEnum.dataset]: {
     icon: 'core/dataset/commonDatasetOutline',
     label: 'common_dataset',
+    collectionLabel: 'common.File'
+  },
+  [DatasetTypeEnum.dataset_v2]: {
+    icon: 'core/dataset/commonDatasetOutline',
+    label: 'common_dataset_v2',
     collectionLabel: 'common.File'
   },
   [DatasetTypeEnum.websiteDataset]: {
@@ -88,6 +94,7 @@ export enum ImportDataSourceEnum {
   fileLocal = 'fileLocal',
   fileLink = 'fileLink',
   fileCustom = 'fileCustom',
+  fileUpload = 'fileUpload', // 纯(文档)上传，解析异步进行，可回到文档列表查看状态
   csvTable = 'csvTable',
   externalFile = 'externalFile'
 }

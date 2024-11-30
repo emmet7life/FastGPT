@@ -5,6 +5,7 @@ import { ImportDataSourceEnum } from '@fastgpt/global/core/dataset/constants';
 import { useContextSelector } from 'use-context-selector';
 import DatasetImportContextProvider, { DatasetImportContext } from './Context';
 
+const FileUpload = dynamic(() => import('./diffSource/hengda/FileUpload'));
 const FileLocal = dynamic(() => import('./diffSource/FileLocal'));
 const FileLink = dynamic(() => import('./diffSource/FileLink'));
 const FileCustomText = dynamic(() => import('./diffSource/FileCustomText'));
@@ -15,6 +16,7 @@ const ImportDataset = () => {
   const importSource = useContextSelector(DatasetImportContext, (v) => v.importSource);
 
   const ImportComponent = useMemo(() => {
+    if (importSource === ImportDataSourceEnum.fileUpload) return FileUpload;
     if (importSource === ImportDataSourceEnum.fileLocal) return FileLocal;
     if (importSource === ImportDataSourceEnum.fileLink) return FileLink;
     if (importSource === ImportDataSourceEnum.fileCustom) return FileCustomText;
