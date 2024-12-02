@@ -57,7 +57,7 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
     [loginSuccess, t, toast]
   );
 
-  const isCommunityVersion = !!(feConfigs?.register_method && !feConfigs?.isPlus);
+  const isCommunityVersion = true;// !!(feConfigs?.register_method && !feConfigs?.isPlus);
 
   const placeholder = (() => {
     if (isCommunityVersion) {
@@ -103,10 +103,9 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
             size={'lg'}
             type={'password'}
             placeholder={
-              // isCommunityVersion
-              // ? t('login:root_password_placeholder')
-              // : 
-              t('common:support.user.login.Password')
+              isCommunityVersion
+                ? t('login:root_password_placeholder')
+                : t('common:support.user.login.Password')
             }
             {...register('password', {
               required: true,
@@ -117,7 +116,7 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
             })}
           ></Input>
         </FormControl>
-        {/* {feConfigs?.docUrl && (
+        {feConfigs?.docUrl && (
           <Flex
             alignItems={'center'}
             mt={7}
@@ -128,7 +127,7 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
             {t('login:policy_tip')}
             <Link
               ml={1}
-              href={getDocPath('/docs/agreement/terms/')}
+              href={getDocPath('')}
               target={'_blank'}
               color={'primary.700'}
             >
@@ -136,14 +135,14 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
             </Link>
             <Box mx={1}>&</Box>
             <Link
-              href={getDocPath('/docs/agreement/privacy/')}
+              href={getDocPath('')}
               target={'_blank'}
               color={'primary.700'}
             >
               {t('login:privacy')}
             </Link>
           </Flex>
-        )} */}
+        )}
 
         <Button
           type="submit"

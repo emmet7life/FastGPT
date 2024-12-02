@@ -126,8 +126,8 @@ const Login = ({ ChineseRedirectUrl }: { ChineseRedirectUrl: string }) => {
     clearToken();
     router.prefetch('/app/list');
 
-    ChineseRedirectUrl && showRedirect && checkIpInChina();
-    localCookieVersion !== cookieVersion && onOpenCookiesDrawer();
+    // ChineseRedirectUrl && showRedirect && checkIpInChina();
+    // localCookieVersion !== cookieVersion && onOpenCookiesDrawer();
   });
 
   return (
