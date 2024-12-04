@@ -24,7 +24,7 @@ export async function getChatItems({
   }
 
   const [histories, total] = await Promise.all([
-    MongoChatItem.find({ chatId, appId }, field).sort({ _id: -1 }).skip(offset).limit(limit).lean(),
+    MongoChatItem.find({ chatId, appId, deleteFlag: 0 }, field).sort({ _id: -1 }).skip(offset).limit(limit).lean(),
     MongoChatItem.countDocuments({ chatId, appId })
   ]);
   histories.reverse();

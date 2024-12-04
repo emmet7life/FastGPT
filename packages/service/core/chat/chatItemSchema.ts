@@ -82,6 +82,10 @@ const ChatItemSchema = new Schema({
   [DispatchNodeResponseKeyEnum.nodeResponse]: {
     type: Array,
     default: []
+  },
+  deleteFlag: {
+    type: Number,
+    default: 0
   }
 });
 

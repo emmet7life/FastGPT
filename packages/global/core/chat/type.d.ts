@@ -98,6 +98,7 @@ export type ChatItemSchema = (UserChatItemType | SystemChatItemType | AIChatItem
   tmbId: string;
   appId: string;
   time: Date;
+  deleteFlag: number;
 };
 
 export type AdminFbkType = {

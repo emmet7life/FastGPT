@@ -4,7 +4,7 @@ import { NodeInputKeyEnum, NodeOutputKeyEnum } from '@fastgpt/global/core/workfl
 import { DispatchNodeResponseKeyEnum } from '@fastgpt/global/core/workflow/runtime/constants';
 import { ModelTypeEnum, getLLMModel } from '../../../../core/ai/model';
 import { formatModelChars2Points } from '../../../../support/wallet/usage/utils';
-import { queryExtension } from '../../../../core/ai/functions/queryExtension';
+import { queryExtension } from '../../../../core/ai/functions/hengda/queryExtension';
 import { getHistories } from '../utils';
 import { hashStr } from '@fastgpt/global/common/string/tools';
 import { DispatchNodeResultType } from '@fastgpt/global/core/workflow/runtime/type';
@@ -38,7 +38,7 @@ export const dispatchQueryExtension = async ({
     model: queryExtensionModel.model
   });
 
-  extensionQueries.unshift(userChatInput);
+  // extensionQueries.unshift(userChatInput);
 
   const { totalPoints, modelName } = formatModelChars2Points({
     model: queryExtensionModel.model,
@@ -61,7 +61,10 @@ export const dispatchQueryExtension = async ({
       model: modelName,
       tokens,
       query: userChatInput,
-      textOutput: JSON.stringify(filterSameQueries)
+      textOutput: (filterSameQueries.length > 0
+        ? JSON.stringify(filterSameQueries[0])
+        : JSON.stringify(filterSameQueries)
+      ).replace(/^"|"$/g, '')
     },
     [DispatchNodeResponseKeyEnum.nodeDispatchUsages]: [
       {

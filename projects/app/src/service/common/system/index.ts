@@ -55,8 +55,8 @@ export async function getInitConfig() {
 }
 
 const defaultFeConfigs: FastGPTFeConfigsType = {
-  show_emptyChat: true,
-  show_git: true,
+  show_emptyChat: false,
+  show_git: false,
   docUrl: 'http://192.168.0.1',
   openAPIDocUrl: 'http://192.168.0.1',
   systemPluginCourseUrl: '',

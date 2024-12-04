@@ -20,11 +20,19 @@ async function handler(req: ApiRequestProps<{}, DeleteChatItemProps>, res: NextA
     ...req.query
   });
 
-  await MongoChatItem.deleteOne({
-    appId,
-    chatId,
-    dataId: contentId
-  });
+  // deleteOne 更改为 updateOne 实现假删除
+  await MongoChatItem.updateOne(
+    {
+      appId,
+      chatId,
+      dataId: contentId
+    },
+    {
+      $set: {
+        deleteFlag: 1
+      }
+    }
+  );
 
   return;
 }
