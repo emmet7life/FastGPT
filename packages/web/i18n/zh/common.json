@@ -845,7 +845,7 @@
   "dataset.collections.Collection Embedding": "{{total}} 组索引中",
   "dataset.collections.Confirm to delete the folder": "确认删除该文件夹及里面所有内容？",
   "dataset.collections.Create And Import": "新建/导入",
-  "dataset.collections.Batch Commit Embedding": "批量提交嵌入",
+  "dataset.collections.Batch Commit Embedding": "全部嵌入",
   "dataset.collections.Data Amount": "数据总量",
   "dataset.collections.Select Collection": "选择文件",
   "dataset.collections.Select One Collection To Store": "选择一个文件进行存储",

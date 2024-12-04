@@ -58,7 +58,8 @@ import {
 } from '@fastgpt/global/core/hengda/dataset/constants';
 import { ImportDataSourceEnum, TrainingModeEnum } from '@fastgpt/global/core/dataset/constants';
 import {
-  confirmDocumentChunkUpload
+  confirmDocumentChunkUpload,
+  batchDocumentChunkEmbedding
 } from '@/web/core/dataset/hengda/api';
 
 const Header = dynamic(() => import('./Header'));
@@ -144,9 +145,10 @@ const CollectionCard = () => {
         return;
       }
 
-      for (const collectionId of collectionIds) {
-        await confirmDocumentChunkUpload(collectionId);
-      }
+      // for (const collectionId of collectionIds) {
+      //   await confirmDocumentChunkUpload(collectionId);
+      // }
+      await batchDocumentChunkEmbedding([]);
     },
     {
       onSuccess() {

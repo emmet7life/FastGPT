@@ -135,17 +135,11 @@ const Header = ({ onBatchCommitEmbbeding }: Props) => {
         <Box textAlign={'end'} mt={[3, 0]} display={'flex'}>
           <Box
             _hover={{
-              color: 'primary.500'
+              color: 'primary.600'
             }}
             fontSize={['sm', 'md']}
             onClick={() => {
-              router.replace({
-                query: {
-                  ...router.query,
-                  currentTab: TabEnum.import,
-                  source: ImportDataSourceEnum.fileUpload
-                }
-              })
+              onBatchCommitEmbbeding && onBatchCommitEmbbeding();
             }}
           >
             <Flex
@@ -167,7 +161,7 @@ const Header = ({ onBatchCommitEmbbeding }: Props) => {
                 />
               </Flex>
               <Box h={'20px'} fontSize={'sm'} fontWeight={'500'}>
-                {t('common:dataset.collections.Create And Import')}
+                {t('common:dataset.collections.Batch Commit Embedding')}
               </Box>
             </Flex>
           </Box>
@@ -179,7 +173,13 @@ const Header = ({ onBatchCommitEmbbeding }: Props) => {
             }}
             fontSize={['sm', 'md']}
             onClick={() => {
-              onBatchCommitEmbbeding && onBatchCommitEmbbeding();
+              router.replace({
+                query: {
+                  ...router.query,
+                  currentTab: TabEnum.import,
+                  source: ImportDataSourceEnum.fileUpload
+                }
+              })
             }}
           >
             <Flex
@@ -187,7 +187,7 @@ const Header = ({ onBatchCommitEmbbeding }: Props) => {
               py={2}
               borderRadius={'sm'}
               cursor={'pointer'}
-              bg={'adora.500'}
+              bg={'primary.600'}
               overflow={'hidden'}
               color={'white'}
             >
@@ -201,7 +201,7 @@ const Header = ({ onBatchCommitEmbbeding }: Props) => {
                 />
               </Flex>
               <Box h={'20px'} fontSize={'sm'} fontWeight={'500'}>
-                {t('common:dataset.collections.Batch Commit Embedding')}
+                {t('common:dataset.collections.Create And Import')}
               </Box>
             </Flex>
           </Box>

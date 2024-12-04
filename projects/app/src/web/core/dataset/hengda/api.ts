@@ -29,13 +29,24 @@ export async function getFileAndOpen(filePath: string) {
   window.open(asPath, '_blank');
 }
 
+// 知识库重构 - 批量提交嵌入请求
+export const batchDocumentChunkEmbedding = (fileCodes: string[]) =>
+  POST(
+    '/document/batch_submit',
+    { fileCodes },
+    {
+      timeout: 360,
+      baseURL: baseRAGServerAPI
+    }
+  );
+
 // 知识库重构 - 确认文档分块上传接口
 export const confirmDocumentChunkUpload = (fileCode: string) =>
   POST(
     '/document/async_submit',
     { fileCode },
     {
-      timeout: 480000,
+      timeout: 360,
       baseURL: baseRAGServerAPI
     }
   );
@@ -46,7 +57,7 @@ export const uploadFileAsync = ({ file }: { file: File }) => {
   form.append('files', file);
 
   return POST<DatasetCollectionUploadFileType>(`/file/async_upload`, form, {
-    timeout: 480000,
+    timeout: 360,
     baseURL: baseRAGServerAPI,
     headers: {
       'Content-Type': 'multipart/form-data; charset=utf-8'

@@ -1,5 +1,5 @@
 import React, { Dispatch, useEffect, useState } from 'react';
-import { FormControl, Box, Input, Button } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, Box, Input, Button } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { LoginPageTypeEnum } from '@/web/support/hengda/constants';
 import { postRegister } from '@/web/support/user/api';
@@ -176,11 +176,14 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
               required: t('user:password.username_required'),
               pattern: {
                 value:
-                  /^[a-zA-Z\u4e00-\u9fa5][a-zA-Z0-9\u4e00-\u9fa5]*$/,
+                  /^[\u4e00-\u9fa5]+[0-9]*$/,
                 message: t('user:password.username_error')
               }
             })}
           ></Input>
+          <FormErrorMessage>
+            {errors.username && errors.username.message}
+          </FormErrorMessage>
         </FormControl>
         <FormControl mt={6} isInvalid={!!errors.password}>
           <Input
@@ -190,6 +193,10 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
             placeholder={t('user:password.new_password')}
             {...register('password', {
               required: t('user:password.password_required'),
+              pattern: {
+                value: /^[^\u4e00-\u9fa5\uD83C-\uDBFF\uDC00-\uDFFF]{4,20}$/,
+                message: t('user:password.password_condition')
+              },
               minLength: {
                 value: 4,
                 message: t('user:password.password_condition')
@@ -200,6 +207,9 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
               }
             })}
           ></Input>
+          <FormErrorMessage>
+            {errors.password && errors.password.message}
+          </FormErrorMessage>
         </FormControl>
         <FormControl mt={6} isInvalid={!!errors.password2}>
           <Input
@@ -212,6 +222,9 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
                 getValues('password') === val ? true : t('user:password.not_match')
             })}
           ></Input>
+          <FormErrorMessage>
+            {errors.password2 && errors.password2.message}
+          </FormErrorMessage>
         </FormControl>
         <Button
           type="submit"

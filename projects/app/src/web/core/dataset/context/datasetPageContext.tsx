@@ -18,6 +18,7 @@ import { DatasetItemType, DatasetTagType } from '@fastgpt/global/core/dataset/ty
 import { useSystemStore } from '@/web/common/system/useSystemStore';
 import { ParentTreePathItemType } from '@fastgpt/global/common/parentFolder/type';
 import { useRequest2 } from '@fastgpt/web/hooks/useRequest';
+import { DatasetTypeEnum } from '@fastgpt/global/core/dataset/constants';
 
 type DatasetPageContextType = {
   datasetId: string;
@@ -89,7 +90,7 @@ export const DatasetPageContext = createContext<DatasetPageContextType>({
     throw new Error('Function not implemented.');
   },
   paths: [],
-  refetchPaths: () => {}
+  refetchPaths: () => { }
 });
 
 export const DatasetPageContextProvider = ({
@@ -104,6 +105,10 @@ export const DatasetPageContextProvider = ({
 
   // dataset detail
   const [datasetDetail, setDatasetDetail] = useState(defaultDatasetDetail);
+  const isDatasetDetailTypeV2 = useMemo(() => {
+    return datasetDetail.type == DatasetTypeEnum.dataset_v2;;
+  }, [datasetDetail]);
+
   const loadDatasetDetail = async (id: string) => {
     const data = await getDatasetById(id);
     setDatasetDetail(data);
@@ -178,7 +183,7 @@ export const DatasetPageContextProvider = ({
         agentModel: datasetDetail.agentModel.model
       }),
     {
-      refetchInterval: 10000
+      refetchInterval: isDatasetDetailTypeV2 ? 100000000 : 10000
     }
   );
   const { vectorTrainingMap, agentTrainingMap } = useMemo(() => {
@@ -223,7 +228,7 @@ export const DatasetPageContextProvider = ({
   // training and rebuild queue
   const { data: { rebuildingCount = 0, trainingCount = 0 } = {}, refetch: refetchDatasetTraining } =
     useQuery(['getDatasetTrainingQueue'], () => getDatasetTrainingQueue(datasetId), {
-      refetchInterval: 10000
+      refetchInterval: isDatasetDetailTypeV2 ? 100000000 : 10000
     });
 
   const { data: paths = [], runAsync: refetchPaths } = useRequest2(

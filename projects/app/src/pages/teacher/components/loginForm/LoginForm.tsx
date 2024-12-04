@@ -1,5 +1,5 @@
 import React, { useState, Dispatch, useCallback } from 'react';
-import { FormControl, Flex, Input, Button, Box, Link } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, Flex, Input, Button, Box, Link } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { LoginPageTypeEnum } from '@/web/support/hengda/constants';
 // import { postLogin } from '@/web/support/user/api';
@@ -94,9 +94,17 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
             size={'lg'}
             placeholder={placeholder}
             {...register('username', {
-              required: true
+              required: t('user:password.username_required'),
+              pattern: {
+                value:
+                  /^[\u4e00-\u9fa5]+[0-9]*$/,
+                message: t('user:password.username_error')
+              }
             })}
           ></Input>
+          <FormErrorMessage>
+            {errors.username && errors.username.message}
+          </FormErrorMessage>
         </FormControl>
         <FormControl mt={7} isInvalid={!!errors.password}>
           <Input
@@ -110,13 +118,24 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
               t('common:support.user.login.Password')
             }
             {...register('password', {
-              required: true,
+              required: t('user:password.password_required'),
+              pattern: {
+                value: /^[^\u4e00-\u9fa5\uD83C-\uDBFF\uDC00-\uDFFF]{4,20}$/,
+                message: t('user:password.password_condition')
+              },
+              minLength: {
+                value: 4,
+                message: t('user:password.password_condition')
+              },
               maxLength: {
-                value: 60,
-                message: t('login:password_condition')
+                value: 20,
+                message: t('user:password.password_condition')
               }
             })}
           ></Input>
+          <FormErrorMessage>
+            {errors.password && errors.password.message}
+          </FormErrorMessage>
         </FormControl>
         {/* {feConfigs?.docUrl && (
           <Flex

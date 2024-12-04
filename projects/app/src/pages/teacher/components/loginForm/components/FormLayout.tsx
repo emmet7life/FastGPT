@@ -1,7 +1,7 @@
 import { LoginPageTypeEnum } from '@/web/support/hengda/constants';
 import { useSystemStore } from '@/web/common/system/useSystemStore';
 import { AbsoluteCenter, Box, Button, Flex } from '@chakra-ui/react';
-import { LOGO_ICON } from '@fastgpt/global/common/system/constants';
+import { LOGO_TEACHER_WU_ICON } from '@fastgpt/global/common/system/constants';
 import { OAuthEnum } from '@fastgpt/global/support/user/constant';
 import MyIcon from '@fastgpt/web/components/common/Icon';
 import { customAlphabet } from 'nanoid';
@@ -35,8 +35,9 @@ const FormLayout = ({ children, setPageType, pageType }: Props) => {
             borderColor={'myGray.200'}
             alignItems={'center'}
             justifyContent={'center'}
+            overflow={'hidden'}
           >
-            <MyImage src={LOGO_ICON} w={['22.5px', '36px']} alt={'icon'} />
+            <MyImage src={LOGO_TEACHER_WU_ICON} w={['100%', '100%']} alt={'icon'} />
           </Flex>
           <Box ml={[3, 5]} fontSize={['lg', 'xl']} fontWeight={'bold'} color={'myGray.900'}>
             {feConfigs?.systemTitle}
