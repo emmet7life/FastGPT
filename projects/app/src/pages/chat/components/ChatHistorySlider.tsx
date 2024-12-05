@@ -265,17 +265,17 @@ const ChatHistorySlider = ({ confirmClearText }: { confirmClearText: string }) =
                                 });
                               }
                             },
-                            {
-                              label: t('common:common.Delete'),
-                              icon: 'delete',
-                              onClick: () => {
-                                onDelHistory(item.id);
-                                if (item.id === activeChatId) {
-                                  onChangeChatId();
-                                }
-                              },
-                              type: 'danger'
-                            }
+                            // {
+                            //   label: t('common:common.Delete'),
+                            //   icon: 'delete',
+                            //   onClick: () => {
+                            //     onDelHistory(item.id);
+                            //     if (item.id === activeChatId) {
+                            //       onChangeChatId();
+                            //     }
+                            //   },
+                            //   type: 'danger'
+                            // }
                           ]
                         }
                       ]}
