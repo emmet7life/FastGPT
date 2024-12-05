@@ -65,7 +65,7 @@ export const useSystemStore = create<State>()(
             state.initd = true;
           });
         },
-        lastRoute: '/app/list',
+        lastRoute: '/teacher/wu',
         setLastRoute(e) {
           set((state) => {
             state.lastRoute = e;

@@ -83,10 +83,10 @@ RUN chown -R nextjs:nodejs /app/data
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV PORT=3000
+ENV PORT=80
 ENV NEXT_PUBLIC_BASE_URL=$base_url
 
-EXPOSE 3000
+EXPOSE 80
 
 USER nextjs
 

@@ -147,7 +147,7 @@
       "model": "bge-reranker-v2-minicpm-layerwise",
       "name": "bge-reranker-v2-minicpm-layerwise",
       "inputPrice": 0,
-      "requestUrl": "http://192.168.16.88:7006/api/v1/rerank",
+      "requestUrl": "http://192.168.0.89:7006/api/v1/rerank",
       "requestAuth": "mytoken"
     }
   ],
