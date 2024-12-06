@@ -9,7 +9,7 @@ import ChatBox from '@/components/core/chat/ChatContainer/ChatBox';
 import type { StartChatFnProps } from '@/components/core/chat/ChatContainer/type';
 
 import PageContainer from '@/components/PageContainer';
-import ChatHeader from './components/ChatHeader';
+import ChatHeader from './components/hengda/ChatHeader';
 import ChatHistorySlider from './components/ChatHistorySlider';
 import { serviceSideProps } from '@/web/common/utils/i18n';
 import { useTranslation } from 'next-i18next';
@@ -39,6 +39,8 @@ import { useChatStore } from '@/web/core/chat/context/useChatStore';
 import { ChatSourceEnum } from '@fastgpt/global/core/chat/constants';
 const CustomPluginRunBox = dynamic(() => import('./components/CustomPluginRunBox'));
 import { useUserStore } from '@/web/support/hengda/useUserStore';
+import type { AppListItemType } from '@fastgpt/global/core/app/type.d';
+import { useAppStore } from '@/web/core/chat/context/useAppStore';
 
 type Props = {
   appId: string;
@@ -50,12 +52,13 @@ type Props = {
   customUid: string;
   showRawSource: boolean;
   showNodeStatus: boolean;
+  myApps: AppListItemType[];
 };
 
 const OutLink = (props: Props) => {
   const { t } = useTranslation();
   const router = useRouter();
-  const { showRawSource, showNodeStatus } = props;
+  const { showRawSource, showNodeStatus, myApps } = props;
   const {
     shareId = '',
     showHistory = '1',
@@ -255,6 +258,7 @@ const OutLink = (props: Props) => {
             {/* header */}
             {showHead === '1' ? (
               <ChatHeader
+                apps={myApps}
                 chatData={chatData}
                 history={chatRecords}
                 totalRecordsCount={totalRecordsCount}
@@ -295,6 +299,7 @@ const Render = (props: Props) => {
   const { shareId, authToken, customUid, appId } = props;
   const { localUId, loaded } = useShareChatStore();
   const { source, chatId, setSource, setAppId, setOutLinkAuthData } = useChatStore();
+  const { myApps } = useAppStore();
 
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -337,7 +342,7 @@ const Render = (props: Props) => {
     <ChatContextProvider params={chatHistoryProviderParams}>
       <ChatItemContextProvider>
         <ChatRecordContextProvider params={chatRecordProviderParams}>
-          <OutLink {...props} />
+          <OutLink {...props} myApps={myApps} />
         </ChatRecordContextProvider>
       </ChatItemContextProvider>
     </ChatContextProvider>

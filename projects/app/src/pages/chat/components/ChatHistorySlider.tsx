@@ -29,7 +29,6 @@ const ChatHistorySlider = ({ confirmClearText }: { confirmClearText: string }) =
   const theme = useTheme();
   const router = useRouter();
   const isUserChatPage = router.pathname === '/chat';
-  const isShareChatPage = router.pathname === '/chat/share';
 
   const { t } = useTranslation();
 
@@ -289,20 +288,14 @@ const ChatHistorySlider = ({ confirmClearText }: { confirmClearText: string }) =
       </ScrollData>
 
       {/* exec */}
-      {((!isPc && isUserChatPage) || isShareChatPage) && (
+      {!isPc && isUserChatPage && (
         <Flex
           mt={2}
           borderTop={theme.borders.base}
           alignItems={'center'}
           cursor={'pointer'}
           p={3}
-          onClick={() => {
-            if (isShareChatPage) {
-              onLogout();
-            } else {
-              router.push('/app/list')
-            }
-          }}
+          onClick={() => router.push('/app/list')}
         >
           <IconButton
             mr={3}
@@ -313,7 +306,7 @@ const ChatHistorySlider = ({ confirmClearText }: { confirmClearText: string }) =
             borderRadius={'50%'}
             aria-label={''}
           />
-          {isShareChatPage ? t('user:logout.Exit') : t('common:core.chat.Exit Chat')}
+          {t('common:core.chat.Exit Chat')}
         </Flex>
       )}
       <EditTitleModal />

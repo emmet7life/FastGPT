@@ -141,6 +141,7 @@ const ChatContextProvider = ({
   const onChangeAppId = useCallback(
     (appId: string) => {
       router.replace({
+        pathname: '/teacher/wu',
         query: {
           ...router.query,
           appId
