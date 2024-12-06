@@ -134,7 +134,7 @@ const Login = () => {
     () => ({
       background: {
         color: {
-          value: "#20599b",
+          value: "#C1D8F1",
         },
       },
       fpsLimit: 120,
