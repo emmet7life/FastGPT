@@ -42,7 +42,7 @@ const ChatHeader = ({
   const isPlugin = chatData.app.type === AppTypeEnum.plugin;
   const { isPc } = useSystem();
 
-  console.log("ChatHeader >> apps", apps);
+  // console.log("ChatHeader >> apps", apps);
 
   return isPc && isPlugin ? null : (
     <Flex
@@ -109,7 +109,7 @@ const MobileDrawer = ({
   const { onChangeAppId } = useContextSelector(ChatContext, (v) => v);
 
   const onclickApp = (id: string) => {
-    console.log("ChatHeader >> onclickApp", id);
+    // console.log("ChatHeader >> onclickApp", id);
     onChangeAppId(id);
     onCloseDrawer();
   };
@@ -226,8 +226,8 @@ const MobileHeader = ({
   const router = useRouter();
   const onOpenSlider = useContextSelector(ChatContext, (v) => v.onOpenSlider);
   const { isOpen: isOpenDrawer, onToggle: toggleDrawer, onClose: onCloseDrawer } = useDisclosure();
-  console.log("MobileHeader router.pathname", router.pathname);
-  console.log("MobileHeader apps", apps);
+  // console.log("MobileHeader router.pathname", router.pathname);
+  // console.log("MobileHeader apps", apps);
   const isShareChat = false;//router.pathname === '/chat/share' || router.pathname === '/teacher/wu';
 
   return (
