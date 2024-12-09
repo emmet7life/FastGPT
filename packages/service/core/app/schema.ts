@@ -114,6 +114,14 @@ const AppSchema = new Schema({
     type: Boolean,
     default: true
   },
+  hiddenFlag: {
+    type: Number,
+    default: 0
+  },
+  sortNumber: {
+    type: Number,
+    default: 0
+  },
 
   // abandoned
   defaultPermission: Number

@@ -101,10 +101,10 @@ async function handler(req: ApiRequestProps<ListAppBody>): Promise<AppListItemTy
   const [myApps, perList] = await Promise.all([
     MongoApp.find(
       findAppsQuery,
-      '_id parentId avatar type name intro tmbId updateTime pluginData inheritPermission'
+      '_id parentId avatar type name intro tmbId updateTime pluginData inheritPermission hiddenFlag sortNumber'
     )
       .sort({
-        updateTime: -1
+        sortNumber: -1
       })
       .limit(searchKey ? 20 : 1000)
       .lean(),
@@ -164,7 +164,7 @@ async function handler(req: ApiRequestProps<ListAppBody>): Promise<AppListItemTy
         privateApp
       };
     })
-    .filter((app) => app.permission.hasReadPer);
+    .filter((app) => app.permission.hasReadPer && app.hiddenFlag == 0 /** 返回非隐藏的app */);
 
   const sliceApps = getRecentlyChat ? filterApps.slice(0, 15) : filterApps;
 
@@ -179,7 +179,9 @@ async function handler(req: ApiRequestProps<ListAppBody>): Promise<AppListItemTy
     permission: app.permission,
     pluginData: app.pluginData,
     inheritPermission: app.inheritPermission ?? true,
-    private: app.privateApp
+    private: app.privateApp,
+    hiddenFlag: app.hiddenFlag ?? 1, // 默认隐藏，避免新创建的DEMO工作流被显示出来
+    sortNumber: app.sortNumber ?? 0
   }));
 }
 

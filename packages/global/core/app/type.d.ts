@@ -46,6 +46,9 @@ export type AppSchema = {
   teamTags: string[];
   inheritPermission?: boolean;
 
+  hiddenFlag?: number;
+  sortNumber?: number;
+
   // abandon
   defaultPermission?: number;
 };
@@ -62,6 +65,8 @@ export type AppListItemType = {
   permission: AppPermission;
   inheritPermission?: boolean;
   private?: boolean;
+  hiddenFlag?: number;
+  sortNumber?: number;
 };
 
 export type AppDetailType = AppSchema & {

@@ -24,7 +24,39 @@ const Auth = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation();
   const router = useRouter();
   const { toast } = useToast();
+  const [isHandlingError, setIsHandlingError] = useState(false);
   const { userInfo, initUserInfo, setUserInfo } = useUserStore();
+
+  useEffect(() => {
+    const handleRouteChangeError = (error: any, url: string, as: string, options: any) => {
+      console.error('❌Route change error:', error);
+      console.log('❌Error occurred while navigating to:', url);
+      // 如果已经在处理错误，则不再重复处理
+      if (isHandlingError) return;
+
+      // 设置标志位，表示正在处理错误
+      setIsHandlingError(true);
+
+      // 在这里执行你的错误处理逻辑
+      if (url.includes('/teacher/login')) {
+        setTimeout(() => {
+          router.replace('/teacher/login');
+          // 重置标志位，表示错误处理完成
+          setIsHandlingError(false);
+        }, 500);
+      } else {
+        // 如果错误不是由 '/teacher/login' 引起的，重置标志位
+        setIsHandlingError(false);
+      }
+    };
+
+    router.events.on('routeChangeError', handleRouteChangeError);
+
+    // 清理事件监听器
+    return () => {
+      router.events.off('routeChangeError', handleRouteChangeError);
+    };
+  }, [router]);
 
   useQuery(
     [router.pathname, 'wu.tsx'],
