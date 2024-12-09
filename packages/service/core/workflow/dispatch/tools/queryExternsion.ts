@@ -55,16 +55,19 @@ export const dispatchQueryExtension = async ({
     return true;
   });
 
+  const textOutput = (
+    filterSameQueries.length > 0
+      ? JSON.stringify(filterSameQueries[0])
+      : JSON.stringify(filterSameQueries)
+  ).replace(/^"|"$/g, '');
+
   return {
     [DispatchNodeResponseKeyEnum.nodeResponse]: {
       totalPoints,
       model: modelName,
       tokens,
       query: userChatInput,
-      textOutput: (filterSameQueries.length > 0
-        ? JSON.stringify(filterSameQueries[0])
-        : JSON.stringify(filterSameQueries)
-      ).replace(/^"|"$/g, '')
+      textOutput: textOutput
     },
     [DispatchNodeResponseKeyEnum.nodeDispatchUsages]: [
       {
@@ -74,6 +77,6 @@ export const dispatchQueryExtension = async ({
         tokens
       }
     ],
-    [NodeOutputKeyEnum.text]: JSON.stringify(filterSameQueries)
+    [NodeOutputKeyEnum.text]: textOutput
   };
 };
