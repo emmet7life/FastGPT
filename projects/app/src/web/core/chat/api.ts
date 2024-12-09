@@ -78,7 +78,12 @@ export const putChatHistory = (data: UpdateHistoryProps) => PUT('/core/chat/upda
 
 /* -------------- feedback ------------ */
 export const updateChatUserFeedback = (data: UpdateChatFeedbackProps) =>
-  POST('/core/chat/feedback/updateUserFeedback', data);
+  POST('/core/chat/feedback/updateUserFeedback', data, {
+    headers: {
+      rootkey: 'root_key',
+      Authorization: 'Bearer fastgpt-tB8K1dp4LNgFeXSxrvg6exqQx0mjeLRxXMTKkRG1d90oKjIFrFED'
+    }
+  });
 
 export const updateChatAdminFeedback = (data: AdminUpdateFeedbackParams) =>
   POST('/core/chat/feedback/adminUpdate', data);

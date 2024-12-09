@@ -15,8 +15,9 @@ async function handler(req: ApiRequestProps<UpdateChatFeedbackProps>, res: NextA
 
   await authChatCrud({
     req,
-    authToken: true,
+    authToken: false,
     authApiKey: true,
+    authRoot: true,
     ...req.body
   });
 
