@@ -159,7 +159,7 @@ const SliderApps = ({ apps, activeAppId }: { apps: AppListItemType[]; activeAppI
               borderRadius={'50%'}
               aria-label={''}
             />
-            {t('common:core.chat.Exit Chat')}
+            {t('common:common.Exit')}
           </Flex>
         )}
       </Box>

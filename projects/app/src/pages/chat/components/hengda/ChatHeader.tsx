@@ -73,7 +73,7 @@ const ChatHeader = ({
       )}
 
       {/* control */}
-      {!isPlugin && <ToolMenu history={history} onRouteToAppDetail={onRouteToAppDetail} />}
+      {/* {!isPlugin && <ToolMenu history={history} onRouteToAppDetail={onRouteToAppDetail} />} */}
     </Flex>
   );
 };

@@ -481,7 +481,7 @@ const authShareChat = async ({
     app,
     apikey: '',
     authType,
-    responseAllData: false,
+    responseAllData: true,
     responseDetail,
     outLinkUserId: uid,
     showNodeStatus

@@ -213,7 +213,7 @@ const WuPage = (props: Props) => {//
         <Flex h={'100%'}>
           {/* pc show myself apps */}
           {isPc && (
-            <Box borderRight={theme.borders.base} w={'220px'} flexShrink={0}>
+            <Box borderRight={theme.borders.base} w={'148px'} flexShrink={0}>
               <SliderApps apps={myApps} activeAppId={appId} />
             </Box>
           )}

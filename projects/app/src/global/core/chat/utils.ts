@@ -2,6 +2,7 @@ import { ChatRoleEnum } from '@fastgpt/global/core/chat/constants';
 import { ChatHistoryItemResType, ChatItemType } from '@fastgpt/global/core/chat/type';
 import { SearchDataResponseItemType } from '@fastgpt/global/core/dataset/type';
 import { FlowNodeTypeEnum } from '@fastgpt/global/core/workflow/node/constant';
+import { findAndTransformToSearchDataResponseItem } from './hengda/utils';
 
 const isLLMNode = (item: ChatHistoryItemResType) =>
   item.moduleType === FlowNodeTypeEnum.chatNode || item.moduleType === FlowNodeTypeEnum.tools;
@@ -37,14 +38,18 @@ export function addStatisticalDataToHistoryItem(historyItem: ChatItemType) {
       })
       .flat() || [];
 
+  const totalQuoteList = flatResData
+    .filter((item) => item.moduleType === FlowNodeTypeEnum.datasetSearchNode)
+    .map((item) => item.quoteList)
+    .flat()
+    .filter(Boolean) as SearchDataResponseItemType[];
+
   return {
     ...historyItem,
     llmModuleAccount: flatResData.filter(isLLMNode).length,
-    totalQuoteList: flatResData
-      .filter((item) => item.moduleType === FlowNodeTypeEnum.datasetSearchNode)
-      .map((item) => item.quoteList)
-      .flat()
-      .filter(Boolean) as SearchDataResponseItemType[],
+    totalQuoteList: totalQuoteList.length
+      ? totalQuoteList
+      : findAndTransformToSearchDataResponseItem(flatResData),
     totalRunningTime: Number(
       historyItem.responseData?.reduce((sum, item) => sum + (item.runningTime || 0), 0).toFixed(2)
     ),
