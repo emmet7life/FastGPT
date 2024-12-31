@@ -7,6 +7,8 @@ import { useTranslation } from 'next-i18next';
 import { useToast } from '@fastgpt/web/hooks/useToast';
 import { useMount } from 'ahooks';
 import SliderApps from './components/SliderApps';
+import Avatar from '@fastgpt/web/components/common/Avatar';
+import { LOGO_TEACHER_WU_ICON } from '@fastgpt/global/common/system/constants';
 
 import { useUserStore } from '@/web/support/hengda/useUserStore';
 import { useShareChatStore } from '@/web/core/chat/storeShareChat';
@@ -113,15 +115,18 @@ const WuPage = (props: Props) => {//
   // console.log("AAA >> wu.tsx >> WuPage >> 🐅 useMount fileConfig", fileConfig)
 
   var appIdMapToShareIdList: Record<string, string> = {
-    '67527d561a317db018c0ee2a': 'b78lekvomw43r2fdxig0g3gb',// PDF翻译
-    '67527c171a317db018c0ec7e': 'kkd9jccdcfacw5c5zkbz7abc',// try
-    '673e8d8b9df291d63df29493': 'odxc7x4usv8ljt6pgoyc6ino',// TeacherWu/伍老师
-    '6750fe3d6229b4b2aef74b54': '6atu1ld2lcofecvlcxf3yw2v',// 文件问答
-    '67524b75c034e9cc64d6cd3e': 'nputuwms08t07nbut21hkj58',// 长字幕反思翻译机器人
-    '67524b58c034e9cc64d6ccd6': 'ipeatrk6macex681tdb1v54m',// 长文翻译专家
-    '67524b0cc034e9cc64d6cc2f': 'ljzxc5yt2nxz1op7uz5xshlh',// 多轮翻译机器人
-    '674d1df444a12639b48b17a3': '70myokz9i1xukr3qg97evqjv',// DEMO
-    '6743fa2c32e34ca6789e8b96': '5q0dvty595zbifyyersz1l5p',// 伍老师
+    "67527d561a317db018c0ee2a": "b78lekvomw43r2fdxig0g3gb", // PDF翻译
+    "67527c171a317db018c0ec7e": "kkd9jccdcfacw5c5zkbz7abc", // try
+    "673e8d8b9df291d63df29493": "odxc7x4usv8ljt6pgoyc6ino", // TeacherWu/伍老师
+    "6750fe3d6229b4b2aef74b54": "6atu1ld2lcofecvlcxf3yw2v", // 文件问答
+    "67524b75c034e9cc64d6cd3e": "nputuwms08t07nbut21hkj58", // 长字幕反思翻译机器人
+    "67524b58c034e9cc64d6ccd6": "ipeatrk6macex681tdb1v54m", // 长文翻译专家
+    "67524b0cc034e9cc64d6cc2f": "ljzxc5yt2nxz1op7uz5xshlh", // 多轮翻译机器人
+    "674d1df444a12639b48b17a3": "70myokz9i1xukr3qg97evqjv", // DEMO
+    "6743fa2c32e34ca6789e8b96": "5q0dvty595zbifyyersz1l5p", // 伍老师
+    "67568fbc461a396e7b28052d": "gzlyk7c8mo4sre8ifgbk8gfc", // 翻译专家
+    "675b98afb3b26e8848c98abc": "eiwjy8ciui0cauyftv9jfed2",
+    "67592674f83ebc86a5438f94": "2rmq1hh4snf1kwkoxmsiqira"
   }
 
   if (fileConfig && fileConfig.data) {
@@ -213,9 +218,21 @@ const WuPage = (props: Props) => {//
         <Flex h={'100%'}>
           {/* pc show myself apps */}
           {isPc && (
-            <Box borderRight={theme.borders.base} w={'148px'} flexShrink={0}>
+            <Flex flexDirection={'column'} borderRight={theme.borders.base} w={'168px'} flexShrink={0}>
+              <Flex
+                pt={5}
+                pb={2}
+                px={[2, 5]}
+                alignItems={'center'}
+                fontSize={'sm'}
+              >
+                <Avatar src={LOGO_TEACHER_WU_ICON} borderRadius={'md'} />
+                <Box flex={'1 0 0'} w={0} ml={2} fontWeight={'bold'} className={'textEllipsis'}>
+                  TeacherWu
+                </Box>
+              </Flex>
               <SliderApps apps={myApps} activeAppId={appId} />
-            </Box>
+            </Flex>
           )}
 
           {systemLoaded ? (

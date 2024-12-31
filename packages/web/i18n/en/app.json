@@ -39,6 +39,7 @@
   "document_upload": "Document Upload",
   "edit_app": "Edit Application",
   "edit_info": "Edit",
+  "statistics_log": "Statistics Log",
   "execute_time": "Execution Time",
   "export_config_successful": "Configuration copied, some sensitive information automatically filtered. Please check for any remaining sensitive data.",
   "export_configs": "Export",

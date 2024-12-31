@@ -64,7 +64,7 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
     // if (isCommunityVersion) {
     //   return t('login:use_root_login');
     // }
-    return [t('common:support.user.login.Username')]
+    return [t('common:common.Username')]
       .concat(
         feConfigs?.login_method?.map((item) => {
           switch (item) {

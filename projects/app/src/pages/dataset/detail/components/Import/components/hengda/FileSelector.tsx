@@ -44,8 +44,8 @@ const FileSelector = ({
   const { feConfigs } = useSystemStore();
 
   const datasetId = useContextSelector(DatasetPageContext, (v) => v.datasetId);
-  const maxCount = 200;
-  const maxSize = 100 * 1024 * 1024;
+  const maxCount = 500;
+  const maxSize = 500 * 1024 * 1024;
 
   const { File, onOpen } = useSelectFile({
     fileType,

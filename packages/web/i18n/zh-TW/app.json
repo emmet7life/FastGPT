@@ -37,6 +37,7 @@
   "document_upload": "文件上傳",
   "edit_app": "編輯應用程式",
   "edit_info": "編輯資訊",
+  "statistics_log": "统计日志",
   "execute_time": "執行時間",
   "export_config_successful": "已複製設定，自動過濾部分敏感資訊，請注意檢查是否仍有敏感資料",
   "export_configs": "匯出設定",

@@ -51,6 +51,7 @@ export const iconPaths = {
   'common/list': () => import('./icons/common/list.svg'),
   'common/loading': () => import('./icons/common/loading.svg'),
   'common/logLight': () => import('./icons/common/logLight.svg'),
+  'common/statisticsLogo': () => import('./icons/common/statisticsLogo.svg'),
   'common/microsoft': () => import('./icons/common/microsoft.svg'),
   'common/monitor': () => import('./icons/common/monitor.svg'),
   'common/navbar/pluginFill': () => import('./icons/common/navbar/pluginFill.svg'),

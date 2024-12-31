@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Flex, useTheme, Box, useDisclosure } from '@chakra-ui/react';
 import MyIcon from '@fastgpt/web/components/common/Icon';
 import Avatar from '@fastgpt/web/components/common/Avatar';
-import ToolMenu from '../ToolMenu';
+import ToolMenu from './ToolMenu';
 import type { ChatItemType } from '@fastgpt/global/core/chat/type';
 import { useTranslation } from 'next-i18next';
 
@@ -73,7 +73,7 @@ const ChatHeader = ({
       )}
 
       {/* control */}
-      {/* {!isPlugin && <ToolMenu history={history} onRouteToAppDetail={onRouteToAppDetail} />} */}
+      {!isPlugin && <ToolMenu history={history} onRouteToAppDetail={onRouteToAppDetail} />}
     </Flex>
   );
 };
@@ -179,12 +179,12 @@ const MobileDrawer = ({
                     alignItems={'center'}
                     {...(item._id === appId
                       ? {
-                        backgroundColor: 'primary.50 !important',
-                        color: 'primary.600'
-                      }
+                          backgroundColor: 'primary.50 !important',
+                          color: 'primary.600'
+                        }
                       : {
-                        onClick: () => onclickApp(item._id)
-                      })}
+                          onClick: () => onclickApp(item._id)
+                        })}
                   >
                     <Avatar src={item.avatar} w={'24px'} borderRadius={'sm'} />
                     <Box ml={2} className={'textEllipsis'}>
@@ -228,7 +228,7 @@ const MobileHeader = ({
   const { isOpen: isOpenDrawer, onToggle: toggleDrawer, onClose: onCloseDrawer } = useDisclosure();
   // console.log("MobileHeader router.pathname", router.pathname);
   // console.log("MobileHeader apps", apps);
-  const isShareChat = false;//router.pathname === '/chat/share' || router.pathname === '/teacher/wu';
+  const isShareChat = false; //router.pathname === '/chat/share' || router.pathname === '/teacher/wu';
 
   return (
     <>

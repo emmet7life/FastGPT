@@ -93,7 +93,7 @@ const ChatHistorySlider = ({ confirmClearText }: { confirmClearText: string }) =
       borderRight={['', theme.borders.base]}
       whiteSpace={'nowrap'}
     >
-      {isPc && (
+      {/* {isPc && (
         <MyTooltip label={canRouteToDetail ? t('app:app_detail') : ''} offset={[0, 0]}>
           <Flex
             pt={5}
@@ -116,7 +116,7 @@ const ChatHistorySlider = ({ confirmClearText }: { confirmClearText: string }) =
             </Box>
           </Flex>
         </MyTooltip>
-      )}
+      )} */}
 
       {/* menu */}
       <Flex
@@ -150,9 +150,10 @@ const ChatHistorySlider = ({ confirmClearText }: { confirmClearText: string }) =
           {t('common:core.chat.New Chat')}
         </Button>
         {/* Clear */}
-        {isPc && histories.length > 0 && (
+        {/* {isPc && histories.length > 0 && (
           <IconButton
             ml={3}
+            w={'36px'}
             h={'100%'}
             variant={'whiteDanger'}
             size={'mdSquare'}
@@ -165,7 +166,7 @@ const ChatHistorySlider = ({ confirmClearText }: { confirmClearText: string }) =
               })()
             }
           />
-        )}
+        )} */}
       </Flex>
 
       <ScrollData flex={'1 0 0'} h={0} px={[2, 5]} overflow={'overlay'}>

@@ -35,7 +35,7 @@ export const batchDocumentChunkEmbedding = (fileCodes: string[]) =>
     '/document/batch_submit',
     { fileCodes },
     {
-      timeout: 360,
+      timeout: 360000,
       baseURL: baseRAGServerAPI
     }
   );
@@ -46,7 +46,7 @@ export const confirmDocumentChunkUpload = (fileCode: string) =>
     '/document/async_submit',
     { fileCode },
     {
-      timeout: 360,
+      timeout: 360000,
       baseURL: baseRAGServerAPI
     }
   );
@@ -57,7 +57,7 @@ export const uploadFileAsync = ({ file }: { file: File }) => {
   form.append('files', file);
 
   return POST<DatasetCollectionUploadFileType>(`/file/async_upload`, form, {
-    timeout: 360,
+    timeout: 360000,
     baseURL: baseRAGServerAPI,
     headers: {
       'Content-Type': 'multipart/form-data; charset=utf-8'
