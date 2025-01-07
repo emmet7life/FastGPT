@@ -60,8 +60,8 @@ const ToolMenu = ({
             size={'sm'}
             variant={'whitePrimary'}
             onClick={() => {
-              // router.push('http://192.168.0.89:3050/');
-              window.open('http://192.168.0.89:3050/', '_blank');
+              // router.push('http://49.51.37.154:3050/');
+              window.open('http://49.51.37.154:3050/', '_blank');
             }}
           />
         </MyTooltip>

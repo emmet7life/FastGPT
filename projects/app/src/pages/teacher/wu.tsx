@@ -255,7 +255,7 @@ export default React.memo(WuPage);
 export async function getServerSideProps(context: any) {
   // const shareId = context?.query?.shareId || '';
   // const customUid = context?.query?.customUid || '';
-  const host = '' + context.req.headers.host || '192.168.0.89:80';
+  const host = '' + context.req.headers.host || '49.51.37.154:80';
   // const [hostname, port] = host.split(':'); // 分割主机名和端口
   console.log('AAA >> wu.tsx >> getServerSideProps >> host', host);
   return {
