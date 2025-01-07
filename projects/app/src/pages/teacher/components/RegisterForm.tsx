@@ -13,6 +13,7 @@ import { useRequest2 } from '@fastgpt/web/hooks/useRequest';
 import DepartmentSelector from '@/components/Select/DepartmentSelector';
 import { getHengdaDepartmentList, hengdaRegister } from '@/web/support/hengda/user';
 import { useRequest } from '@fastgpt/web/hooks/useRequest';
+import { useConfirm } from '@fastgpt/web/hooks/useConfirm';
 
 interface Props {
   loginSuccess: (e: ResLogin) => void;
@@ -20,7 +21,7 @@ interface Props {
 }
 
 interface RegisterType {
-  department: number;// 部门
+  department: number; // 部门
   username: string;
   password: string;
   password2: string;
@@ -29,6 +30,9 @@ interface RegisterType {
 const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
   const { toast } = useToast();
   const { t } = useTranslation();
+  const { openConfirm: openConfirmDel, ConfirmModal: DelConfirmModal } = useConfirm({
+    type: 'common'
+  });
   const [departmentList, setDepartmentList] = useState<{ label: string; value: number }[]>([]);
   const { feConfigs } = useSystemStore();
   const {
@@ -39,7 +43,7 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
     setValue, // 用于设置表单值
     formState: { errors }
   } = useForm<RegisterType>({
-    mode: 'onBlur',
+    mode: 'onBlur'
     // defaultValues: {
     //   department: "1"// 默认值
     // }
@@ -58,16 +62,16 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
       //   }
       // })();
 
-      console.log("onclickRegister username", username);
-      console.log("onclickRegister password", password);
-      console.log("onclickRegister department", department);
+      console.log('onclickRegister username', username);
+      console.log('onclickRegister password', password);
+      console.log('onclickRegister department', department);
 
       const res = await hengdaRegister({
         username,
         password,
         department_id: department
       });
-      console.log("onclickRegister res", res);
+      console.log('onclickRegister res', res);
 
       loginSuccess(res);
 
@@ -103,12 +107,12 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
     const fetchDepartmentList = async () => {
       try {
         const departments = await getHengdaDepartmentList();
-        console.log("getDepartmentList departments", departments);
+        console.log('getDepartmentList departments', departments);
         const list = departments.map((item) => {
           return {
             label: item.name,
             value: item.id
-          }
+          };
         });
         setDepartmentList(list);
         if (list.length > 0) {
@@ -164,7 +168,8 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
               onchange={(val) => {
                 setValue('department', val);
               }}
-              list={departmentList} />
+              list={departmentList}
+            />
           </Box>
         </FormControl>
         <FormControl mt={6} isInvalid={!!errors.username}>
@@ -175,15 +180,12 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
             {...register('username', {
               required: t('user:password.username_required'),
               pattern: {
-                value:
-                  /^[\u4e00-\u9fa5]+[0-9]*$/,
+                value: /^[\u4e00-\u9fa5]+[0-9]*$/,
                 message: t('user:password.username_error')
               }
             })}
           ></Input>
-          <FormErrorMessage>
-            {errors.username && errors.username.message}
-          </FormErrorMessage>
+          <FormErrorMessage>{errors.username && errors.username.message}</FormErrorMessage>
         </FormControl>
         <FormControl mt={6} isInvalid={!!errors.password}>
           <Input
@@ -207,9 +209,7 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
               }
             })}
           ></Input>
-          <FormErrorMessage>
-            {errors.password && errors.password.message}
-          </FormErrorMessage>
+          <FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
         </FormControl>
         <FormControl mt={6} isInvalid={!!errors.password2}>
           <Input
@@ -222,9 +222,7 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
                 getValues('password') === val ? true : t('user:password.not_match')
             })}
           ></Input>
-          <FormErrorMessage>
-            {errors.password2 && errors.password2.message}
-          </FormErrorMessage>
+          <FormErrorMessage>{errors.password2 && errors.password2.message}</FormErrorMessage>
         </FormControl>
         <Button
           type="submit"
@@ -236,7 +234,15 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
           fontWeight={['medium', 'medium']}
           colorScheme="blue"
           isLoading={requesting}
-          onClick={handleSubmit(onclickRegister)}
+          onClick={() => {
+            openConfirmDel(
+              () => {
+                handleSubmit(onclickRegister)();
+              },
+              undefined,
+              '请再次确认您选择的部门是否正确！'
+            )();
+          }}
         >
           {t('user:register.confirm')}
         </Button>
@@ -253,7 +259,8 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
         >
           {t('user:register.to_login')}
         </Box>
-      </Box >
+      </Box>
+      <DelConfirmModal />
     </>
   );
 };
