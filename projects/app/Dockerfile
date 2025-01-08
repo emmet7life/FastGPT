@@ -27,6 +27,9 @@ WORKDIR /app
 
 ARG proxy
 ARG base_url
+ARG NEXT_PUBLIC_BASE_SERVER_API
+ARG NEXT_PUBLIC_BASE_SERVER_RAG_API
+ARG NEXT_PUBLIC_BASE_SERVER_RAG_FILE_API
 
 # copy common node_modules and one project node_modules
 COPY package.json pnpm-workspace.yaml .npmrc tsconfig.json ./
@@ -44,7 +47,6 @@ ENV NEXT_PUBLIC_BASE_URL=$base_url
 ENV NEXT_PUBLIC_BASE_SERVER_API=$NEXT_PUBLIC_BASE_SERVER_API
 ENV NEXT_PUBLIC_BASE_SERVER_RAG_API=$NEXT_PUBLIC_BASE_SERVER_RAG_API
 ENV NEXT_PUBLIC_BASE_SERVER_RAG_FILE_API=$NEXT_PUBLIC_BASE_SERVER_RAG_FILE_API
-
 RUN pnpm --filter=app build
 
 # --------- runner -----------
